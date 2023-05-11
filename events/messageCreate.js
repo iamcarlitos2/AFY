@@ -1,3 +1,4 @@
+const client = require("../index").client 
 client.on('messageCreate', async message => {
     if(message.author.bot || message.channel.type == 'DM') return
 
