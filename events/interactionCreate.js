@@ -5,5 +5,11 @@ client.on('interactionCreate', async inter => {
 
          let SlashCmds = client.SlashCmds.get(inter.commandName)
         if(SlashCmds) SlashCmds.run(inter)
-        }
+    }
+
+    if(inter.isContextMenu()) {
+
+        let SlashCmds = client.SlashCmds.get(inter.commandName)
+       if(SlashCmds) SlashCmds.run(inter)
+   }
 });
