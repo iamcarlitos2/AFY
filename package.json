@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "discord.js": "^13.1.0",
-    "dotenv": "^16.0.3",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "mongodb": "^5.5.0",
+    "mongoose": "^7.1.1"
   }
 }

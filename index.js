@@ -1,5 +1,5 @@
 const discord = require('discord.js');
-require('dotenv').config();
+const { token } = require('./config.json');
 const fs = require('fs');
 const client = new discord.Client({
     intents: [discord.Intents.FLAGS.GUILDS, discord.Intents.FLAGS.GUILD_MEMBERS, discord.Intents.FLAGS.GUILD_MESSAGES, discord.Intents.FLAGS.DIRECT_MESSAGES],
@@ -11,6 +11,7 @@ client.aliases = new discord.Collection();
 client.events = new discord.Collection();
 client.SlashCmds = new discord.Collection();
 module.exports.client = client
+require('./mongo');
 
 //Command handler
 fs.readdirSync('./commands/').forEach(dir =>{
@@ -79,4 +80,4 @@ fs.readdirSync('./SlashCommands/').forEach(dir =>{
 });
 
 //Token
-client.login(process.env.TOKEN);
+client.login(token);
