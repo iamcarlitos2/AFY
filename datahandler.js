@@ -32,6 +32,28 @@ async function createCmd(client, guildId) {
                 description: 'Cantidad de mensajes para eliminar',
                 required: true
             }]
+        },
+        //comando baneo
+        {
+            name: 'ban',
+            description: 'baneas a un usuario temporalmente',
+            options: [{
+                name: "target",
+                type: 'USER',
+                description: 'Usuario que quieres banear',
+                required: true
+            }]
+        },
+        //comando kick
+        {
+            name: 'kick',
+            description: 'Expulsas un usuario fuera del servidor',
+            options: [{
+                name: "target",
+                type: 'USER',
+                description: 'Usuario que quieres expulsar',
+                required: true
+            }]
         }
     ]
 
