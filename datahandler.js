@@ -22,17 +22,6 @@ async function createCmd(client, guildId) {
             name:'hola',
             type: 3
         },
-        //comando purga
-        {
-            name:'purge',
-            description: 'Elimina 300 mensajes',
-            options: [{
-                name:'cantidad',
-                type: 'NUMBER',
-                description: 'Cantidad de mensajes para eliminar',
-                required: true
-            }]
-        },
         //comando baneo
         {
             name: 'ban',
@@ -42,7 +31,14 @@ async function createCmd(client, guildId) {
                 type: 'USER',
                 description: 'Usuario que quieres banear',
                 required: true
-            }]
+            },
+            {
+                name: "razon",
+                type: 'STRING',
+                description: 'Razon del baneo',
+                required: false
+            }
+            ]
         },
         //comando kick
         {
@@ -53,6 +49,47 @@ async function createCmd(client, guildId) {
                 type: 'USER',
                 description: 'Usuario que quieres expulsar',
                 required: true
+            },
+            {
+                
+                name: "razon",
+                type: 'STRING',
+                description: 'Razon de la expulsion',
+                required: false
+            
+            }
+            ]
+        },
+        //perfil
+        {
+            name: 'perfil',
+            description: 'creas un perfil',
+            options: [{
+                name: 'option',
+                description:'Elige algo para editar',
+                type: 'STRING',
+                choices: [
+                   {
+                    name: 'name',
+                    value: 'user_name'
+                   },
+                   {
+                    name: 'age',
+                    value: 'user_age'
+                   },
+                   {
+                    name: 'hobby',
+                    value: 'user_age'
+                   },
+                   {
+                    name: 'id',
+                    value: 'user_id'
+                   },
+                   {
+                    name: 'look_up',
+                    value: 'lookup'
+                   }
+                ]
             }]
         }
     ]
