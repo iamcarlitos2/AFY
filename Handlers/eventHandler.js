@@ -1,4 +1,4 @@
-const { EventEmitter } = require('events');
+const { error } = require('console');
 
 function loadEvents(client){
     const ascii = require('ascii-table');
@@ -27,7 +27,6 @@ function loadEvents(client){
                 else client.on(event.name, (...args) => event.execute(...args, client));
             }
             table.addRow(file, 'cargado');
-            continue;
         }
     }
 

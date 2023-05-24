@@ -42,12 +42,12 @@ module.exports = {
             });
 
             await channel.bulkDelete(filtered).then(messages => {
-                res.setDescription(`Mensajes eliminados ${messages.size} del usuario ${usuario}`);
+                res.setDescription(` **${messages.size}** Mensajes eliminados  del usuario ${usuario}`);
                 interaction.reply({embeds: [res]});
             })
         } else {
             await channel.bulkDelete(cantidad, true).then(messages => {
-                res.setDescription(`Mensajes eliminados ${messages.size} del canal`);
+                res.setDescription(` **${messages.size}** mensajes eliminados del canal`);
                 interaction.reply({embeds: [res]});
             });
         }

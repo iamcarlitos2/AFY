@@ -1,6 +1,6 @@
 const { Message, SlashCommandBuilder, PermissionFlagsBits, IntentsBitField, IntegrationApplication, InteractionResponse} = require('discord.js');
 const welcomeSchema = require('../../Models/Welcome');
-const { model, Schema } = require('mongoose');
+const mongoose = require('mongoose');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -27,7 +27,7 @@ module.exports = {
         const { channel, options} = interaction;
 
         const welcomeChannel = options.getChannel('channel');
-        const welcomeMessage = opstions.getString("welcome-message");
+        const welcomeMessage = options.getString("welcome-message");
         const roleId = options.getRole('welcome-role');
 
         if(!interaction.guild.members.me.permissions.has(PermissionFlagsBits.SendMessages)) {

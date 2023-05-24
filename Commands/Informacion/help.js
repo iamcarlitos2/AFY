@@ -1,4 +1,4 @@
-const { ComponentType, EmbedBuilder, SlashCommandBuilder, ActionRowBuilder, SelectMenuBuilder, IntentsBitField } = require('discord.js');
+const { ComponentType, EmbedBuilder, SlashCommandBuilder, ActionRowBuilder, StringSelectMenuBuilder, IntentsBitField } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,9 +11,14 @@ module.exports = {
             general: "📌",
         };
 
-        const directories = {
-            ...new Set(interaction.client.commands.map((cmd) => cmd.folder)),
-        };
+        const directories = []
+
+        interaction.client.commands.forEach(({folder}) => {
+            if(!directories.includes(folder)){
+                directories.push(folder);
+            }
+        });
+        console.log(directories);
 
         const formatString = (str) => `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`;
 
@@ -36,7 +41,7 @@ module.exports = {
 
         const components = (state) => [
             new ActionRowBuilder().addComponents(
-                new SelectMenuBuilder()
+                new StringSelectMenuBuilder()
                 .setCustomId("help-menu")
                 .setPlaceholder('Elige una categoria')
                 .setDisabled(state)
@@ -62,13 +67,13 @@ module.exports = {
 
         const collector = interaction.channel.createMessageComponentCollector({
             filter,
-            componentType: ComponentType.SelectMenu,
+            componentType: ComponentType.StringSelect,
         });
 
         collector.on("collect", (interaction) => {
             const [directory] = interaction.values;
             const categoria = categories.find(
-                (x) = x.directory.toLowerCase() === directory
+                (x) => x.directory.toLowerCase() === directory
             );
 
             const categoryEmbed = new EmbedBuilder()
@@ -87,7 +92,7 @@ module.exports = {
             interaction.update({embeds: [categoryEmbed]});
         });
 
-        collector.end("end", () => {
+        collector.on("end", () => {
             initialMessage.edit({ components: components(true) });
         });
     },
