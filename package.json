@@ -1,9 +1,11 @@
 {
   "dependencies": {
     "ascii-table": "^0.0.9",
+    "discord-logs": "^2.2.1",
     "discord.js": "^14.11.0",
     "fs": "^0.0.1-security",
     "mongodb": "^5.5.0",
-    "mongoose": "^7.2.0"
+    "mongoose": "^7.2.0",
+    "ms": "^2.1.3"
   }
 }

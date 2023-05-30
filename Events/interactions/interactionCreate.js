@@ -4,6 +4,7 @@ module.exports = {
     name: "interactionCreate",
 
     execute(interaction, client) {
+        const {customId, values, guild, member} = interaction;
         if (interaction.isChatInputCommand()) {
             const command = client.commands.get(interaction.commandName);
 
