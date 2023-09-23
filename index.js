@@ -22,7 +22,7 @@ logs(client, {
     debug: true
 });
 
-const {handleLogs} = require('./Handlers/handleLogs');
+
 const {loadEvents} = require('./Handlers/eventHandler');
 const {loadCommands} = require('./Handlers/commandHandler');
 
@@ -32,7 +32,6 @@ client.config = require('./config.json');
 
 //Token
 client.login(client.config.token).then(() => {
-    handleLogs(client);
     loadEvents(client);
     loadCommands(client);
 });

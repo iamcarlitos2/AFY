@@ -4,14 +4,19 @@ module.exports = {
     name: "interactionCreate",
 
     execute(interaction, client) {
-        const {customId, values, guild, member} = interaction;
+        const {customId, values, fields, member, guild, commandName, channel, guildId, message} = interaction;
         if (interaction.isChatInputCommand()) {
             const command = client.commands.get(interaction.commandName);
 
-            if (!command) {
-                interaction.reply({ content: 'Comando desactualizado' });
+            if(!command) {
+                return interaction.reply({
+                    content: "Comando desactualizado",
+                    ephemeral: true,
+                });
+
+                command.execute(interaction, client);
             }
-            command.execute(interaction, client);
+            
         } else {
             console.log('He llegado aqui'); //Solo saltara cuando sea un slashcommand
         }
