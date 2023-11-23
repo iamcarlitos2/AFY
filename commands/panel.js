@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-const DiscordXp = require('discord.js-leveling');
-const { mongo } = require('mongoose');
+const mongo = require('../src/connect');
+
 
 //constantes de los emojis
 const EMOJI_QUESTION = '❓';

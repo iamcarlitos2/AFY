@@ -2,14 +2,14 @@ const fs = require('fs');
 const { Client, Collection, Intents, MessageReaction, MessageEmbed} = require('discord.js');
 const { prefix, token } = require('./config.json');
 const { mongo } = require('mongoose');
-// const general = require('./reactions/general');
-// const resell = require('./reactions/resell');
-// const kick = require('./reactions/kick');
-// const paypal = require('./reactions/paypal');
-// const close = require('./reactions/close');
-// const reopen = require('./reactions/reopen');
-// const transcript = require('./reactions/transcript');
-// const ticket = require('./reactions/delete');
+const general = require('./reactions/general');
+const resell = require('./reactions/resell');
+const kick = require('./reactions/kick');
+const paypal = require('./reactions/paypal');
+const close = require('./reactions/close');
+const reopen = require('./reactions/reopen');
+const transcript = require('./reactions/transcript');
+const ticket = require('./reactions/delete');
 
 
 

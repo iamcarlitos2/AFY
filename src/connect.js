@@ -1,16 +1,17 @@
-const MongoClient = require('mongodb')
+const { MongoClient } = require('mongodb')
 const { url, dbName } = require('../config.json');
 const { trusted } = require('mongoose');
 //definimos conexion
 let connection;
 
-async function connectToMongoDB() {
+async function connectToDatabase() {
     try {
+        //Nos conectammos a la base de datos
         const client = await MongoClient.connect(url, { useUnifiedTopology: true });
-        console.log('Te has conectado correctamente a la base de popyfres');
-        return client;
+        console.log('Conectado a la DB de popyfres')
+        connection = client;
     } catch (error) {
-        console.log('Erro al conectarse a mongo', error);
+        console.error('Error al conectarse a la base de datos', error);
         throw error;
     }
 }
@@ -18,7 +19,7 @@ async function connectToMongoDB() {
 async function validatePanel(msgID) {
     try {
         if (!connection) {
-            connection = await connectToMongoDB();
+            connection = await connectToDatabase();
         }
 
         const db = connection.db(dbName);
@@ -34,17 +35,23 @@ async function validatePanel(msgID) {
 
 async function validateGuild(guID) {
     try {
+        console.log("Antes de comprobar la conexion")
         if (!connection) {
-            connection = await connectToMongoDB();
+            console.log('Conexion no existente a la base de datos, intentando conectar');
+            connection = await connectToDatabase();
+            console.log("Conexion establecida")
         }
 
+        console.log("Antes de obtener la base de datos")
         const db = connection.db(dbName);
+        console.log("Despues de obtener la base de datos");
+        //Realizamos pruebas para ver donde rompe
         const collection = db.collection('panel');
-        const result = await collection.findOne({ guildID: `${guID}` });
+        const result = await collection.findOne({ guildID: guID });
         return result;
     } catch (error) {
-        console.error("Error querying MongoDB:", err);
-        throw err;
+        console.error("Error querying MongoDB:", error);
+        throw error;
     }
 }
 
@@ -406,7 +413,7 @@ async function deleteTicketPanel (chID) {
 }
 
 module.exports = {
-    validatePanel, validateGuild, createPanel, setupDB, updateTranscript, updateRoles, validateConfig, newTicket, newTicketPanel, validateTicket_Guild, validateTicket_Channel, validateTicketAuthor,
+    connectToDatabase, validatePanel, validateGuild, createPanel, setupDB, updateTranscript, updateRoles, validateConfig, newTicket, newTicketPanel, validateTicket_Guild, validateTicket_Channel, validateTicketAuthor,
     validateTicketPanel_Guild, validateTicketPanel_Channel, validateTicketPanel_Author, ticketUpdateStatus_Close, ticketUpdateStatus_Reopen, ticketPanelUpdateStatus_Close,
     ticketPanelUpdateStatus_Reopen, updateTicketAdd, deleteTicket, deleteTicketPanel
 
