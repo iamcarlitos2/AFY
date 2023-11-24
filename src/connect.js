@@ -10,6 +10,7 @@ async function connectToDatabase() {
         const client = await MongoClient.connect(url, { useUnifiedTopology: true });
         console.log('Conectado a la DB de popyfres')
         connection = client;
+        return client;
     } catch (error) {
         console.error('Error al conectarse a la base de datos', error);
         throw error;
@@ -35,17 +36,16 @@ async function validatePanel(msgID) {
 
 async function validateGuild(guID) {
     try {
-        console.log("Antes de comprobar la conexion")
+        //Antes de compropbar la conexion
         if (!connection) {
-            console.log('Conexion no existente a la base de datos, intentando conectar');
+            //Conexion no existente a la base de datos, intentando conectar
             connection = await connectToDatabase();
             console.log("Conexion establecida")
         }
 
-        console.log("Antes de obtener la base de datos")
+        //Antes de obtener la base de datos
         const db = connection.db(dbName);
-        console.log("Despues de obtener la base de datos");
-        //Realizamos pruebas para ver donde rompe
+        //Despues de obtener la base de datos
         const collection = db.collection('panel');
         const result = await collection.findOne({ guildID: guID });
         return result;
@@ -150,6 +150,9 @@ async function updateRoles(guID, roles) {
 
 async function validateConfig(guID) {
     try {
+        if (!connection) {
+            connection = await connectToDatabase();
+        }
         const db = connection.db(dbName);
         const collection = db.collection('config');
 
